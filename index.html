@@ -2,93 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Message</title>
-  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Firebase tutorial from Yashwant Pathak</title>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-<div class="bg"></div>
-
-<main class="form-signin">
-  <h1 class="h3">Message For Nasim</h1>
-  <form id="messageForm">
-    <div class="form-floating">
-      <input type="text" class="form-control" id="msg" >
-      <label for="floatingInput">Send Something</label>
+  <div class="container">
+    <h1 class="brand"><span>FireBase</span> Sample By Yashwant Pathak</h1>
+    <div class="wrapper">
+      <div class="company-info">
+       
+       
+      </div>
+      <div class="contact">
+        <h3>Email Us</h3>
+        <div class="alert">Your message has been sent</div>
+        <form id="contactForm">
+          <p class="full">
+            <label>Message</label>
+            <textarea name="message" rows="5" id="message"></textarea>
+          </p>
+          <p class="full">
+            <button type="submit">Submit</button>
+          </p>
+        </form>
+      </div>
     </div>
-    <button class="w-100 btn btn-lg" type="submit">Submit</button>
-  </form>
-  <p class="copyright">&copy; 2024</p>
-</main>
+  </div>
 
-<!-- Include Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
-
-<!-- Initialize Firebase -->
-<script>
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-  apiKey: "AIzaSyBgAqSc6L5zbrzfWR781JJbWKNofOZQk10",
-  authDomain: "msgrepo-5fa79.firebaseapp.com",
-  databaseURL: "https://msgrepo-5fa79-default-rtdb.firebaseio.com",
-  projectId: "msgrepo-5fa79",
-  storageBucket: "msgrepo-5fa79.appspot.com",
-  messagingSenderId: "281846830546",
-  appId: "1:281846830546:web:9563e1a1b3ffcbb05b640b",
-  measurementId: "G-F9SHR3JHXQ"
-};
-
-  firebase.initializeApp(firebaseConfig);
-
-    // Reference to your Realtime Database
-    const database = firebase.database();
-
-    // Retrieve data from the database
-    const databaseRef = database.ref('/msg'); 
-   databaseRef.on('value', (snapshot) => {
-      const data = snapshot.val();
-      console.log("Data from Realtime Database:", data);
-    });
-
-  // Form submission handler
-  document.getElementById('messageForm').addEventListener('submit',submitForm);
-    function submitForm(e) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Get the email input value
-    var msg = getInputVal('msg');
-
-    // Add a new message document to Firestore
-    saveMessage(msg);
-     // Show alert
-    document.querySelector('.alert').style.display = 'block';
-    
-    // Hide alert after 3 seconds
-  setTimeout(function(){
-    document.querySelector('.alert').style.display = 'none';
-  },3000);
-
-  // Clear form
-  document.getElementById('contactForm').reset();
-}
-
-// Function to get get form values
-function getInputVal(id){
-  return document.getElementById(id).value;
-}
-
-// Save message to firebase
-function saveMessage(msg){
-  var newMessageRef = messagesRef.push();
-  newMessageRef.set({
-    msg:msg
-  });
-}
-</script>
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
