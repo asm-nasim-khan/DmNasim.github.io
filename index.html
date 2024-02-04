@@ -43,14 +43,17 @@
   measurementId: "G-F9SHR3JHXQ"
 };
 
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  // Get a reference to the Firestore service
-  // const firestore = firebase.firestore();
+    // Reference to your Realtime Database
+    const database = firebase.database();
 
-  // Reference to the message collection
-  const messagesCollection = firestore.collection('messages');
+    // Retrieve data from the database
+    const databaseRef = database.ref('/msg'); 
+   databaseRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log("Data from Realtime Database:", data);
+    });
 
   // Form submission handler
   document.getElementById('messageForm').addEventListener('submit',submitForm);
