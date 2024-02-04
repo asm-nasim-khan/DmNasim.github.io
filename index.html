@@ -16,7 +16,7 @@
   <h1 class="h3">Message For Nasim</h1>
   <form id="messageForm">
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" >
+      <input type="text" class="form-control" id="msg" >
       <label for="floatingInput">Send Something</label>
     </div>
     <button class="w-100 btn btn-lg" type="submit">Submit</button>
@@ -41,39 +41,51 @@
   messagingSenderId: "281846830546",
   appId: "1:281846830546:web:9563e1a1b3ffcbb05b640b",
   measurementId: "G-F9SHR3JHXQ"
-  };
+};
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
   // Get a reference to the Firestore service
-  const firestore = firebase.firestore();
+  // const firestore = firebase.firestore();
 
   // Reference to the message collection
   const messagesCollection = firestore.collection('messages');
 
   // Form submission handler
-  document.getElementById('messageForm').addEventListener('submit', function(event) {
+  document.getElementById('messageForm').addEventListener('submit',submitForm);
+    function submitForm(e) {
     event.preventDefault(); // Prevent the default form submission
 
     // Get the email input value
-    const email = document.getElementById('floatingInput').value;
+    var msg = getInputVal('msg');
 
     // Add a new message document to Firestore
-    messagesCollection.add({
-      email: email,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(function(docRef) {
-      console.log('Document written with ID: ', docRef.id);
-      alert('Message sent successfully!');
-      document.getElementById('messageForm').reset(); // Reset the form after submission
-    })
-    .catch(function(error) {
-      console.error('Error adding document: ', error);
-      alert('An error occurred while sending the message. Please try again later.');
-    });
+    saveMessage(msg);
+     // Show alert
+    document.querySelector('.alert').style.display = 'block';
+    
+    // Hide alert after 3 seconds
+  setTimeout(function(){
+    document.querySelector('.alert').style.display = 'none';
+  },3000);
+
+  // Clear form
+  document.getElementById('contactForm').reset();
+}
+
+// Function to get get form values
+function getInputVal(id){
+  return document.getElementById(id).value;
+}
+
+// Save message to firebase
+function saveMessage(msg){
+  var newMessageRef = messagesRef.push();
+  newMessageRef.set({
+    msg:msg
   });
+}
 </script>
 </body>
 </html>
